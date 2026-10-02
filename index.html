@@ -1,514 +1,779 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth antialiased">
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apven — Cables Originales Apple</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-          },
-          colors: {
-            apven: {
-              canvas: '#F5F5F7',
-              surface: '#FFFFFF',
-              dark: '#161617',
-              gray: '#86868B',
-              blue: '#0071E3',
-              blueHover: '#0077ED',
-              green: '#34C759'
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venturacom | Soluciones Digitales, Arquitectura y Analítica de Datos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef8ff',
+                            100: '#d8eeff',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            primary: '#2563eb',
+                            cyan: '#06b6d4',
+                            violet: '#8b5cf6',
+                            dark: '#030712',
+                            card: '#0B1120',
+                            border: '#1E293B',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'data-stream': 'stream 3s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        stream: {
+                            '0%': { strokeDashoffset: '100' },
+                            '100%': { strokeDashoffset: '0' },
+                        }
+                    }
+                }
             }
-          },
-          boxShadow: {
-            'apple': '0 4px 20px rgba(0, 0, 0, 0.04)',
-            'apple-hover': '0 20px 40px rgba(0, 0, 0, 0.08)',
-          }
         }
-      }
-    }
-  </script>
-  <style>
-    body {
-      background-color: #F5F5F7;
-      color: #161617;
-      font-family: 'Inter', -apple-system, sans-serif;
-    }
-    .frosted-nav {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-  </style>
+    </script>
+
+    <style>
+        .glass-panel {
+            background: rgba(11, 17, 32, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel-hover {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-panel-hover:hover {
+            border-color: rgba(56, 189, 248, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.15);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 40%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-brand {
+            background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #8b5cf6 100%);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 50px -10px rgba(6, 182, 212, 0.35);
+        }
+        .grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-black selection:text-white">
+<body class="bg-brand-dark text-slate-200 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
 
-  <header class="sticky top-0 z-40 w-full frosted-nav border-b border-black/[0.06]">
-    <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-      
-      <!-- Minimalist Apven Brand Logo -->
-      <a href="#" class="flex items-center space-x-2.5 group">
-        <div class="w-9 h-9 rounded-2xl bg-black flex items-center justify-center p-2 shadow-sm transition-transform group-hover:scale-105">
-          <svg viewBox="0 0 100 100" class="w-full h-full fill-none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 14 C55 8, 65 10, 63 19 C56 22, 49 18, 50 14Z" fill="#FFFFFF"/>
-            <path d="M24 32 L46 76 C48 80, 52 80, 54 76 L76 32 C78 29, 75 27, 72 27 C68 27, 66 30, 64 34 L50 64 L36 34 C34 30, 32 27, 28 27 C25 27, 22 29, 24 32Z" fill="#FFFFFF"/>
-            <rect x="48" y="44" width="4" height="10" rx="2" fill="#E5A93C"/>
-          </svg>
-        </div>
-        <span class="text-lg font-bold tracking-tight text-apven-dark">Apven</span>
-      </a>
-
-      <!-- Visual Filter Pills -->
-      <div class="flex items-center space-x-1.5 bg-neutral-200/60 p-1 rounded-full text-xs font-semibold">
-        <button onclick="setFilter('all', this)" class="filter-pill px-3.5 py-1.5 rounded-full bg-white text-black shadow-sm transition-all">Todos</button>
-        <button onclick="setFilter('mac', this)" class="filter-pill px-3.5 py-1.5 rounded-full text-apven-gray hover:text-black transition-all">Mac</button>
-        <button onclick="setFilter('iphone', this)" class="filter-pill px-3.5 py-1.5 rounded-full text-apven-gray hover:text-black transition-all">iPhone</button>
-        <button onclick="setFilter('watch', this)" class="filter-pill px-3.5 py-1.5 rounded-full text-apven-gray hover:text-black transition-all">Watch</button>
-      </div>
-
-      <!-- Quick Bag Icon -->
-      <button onclick="toggleCartDrawer(true)" class="relative p-2 rounded-full hover:bg-neutral-100 transition-colors">
-        <svg class="w-5 h-5 text-apven-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-        </svg>
-        <span id="bagCounter" class="absolute top-1 right-1 w-4 h-4 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
-      </button>
-
-    </div>
-  </header>
-
-  <main class="flex-grow max-w-6xl mx-auto px-5 w-full py-8">
-    <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Injected via JavaScript -->
-    </div>
-  </main>
-
-  <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-200">
-    <div id="checkoutCard" class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 shadow-apple-hover transform translate-y-8 sm:translate-y-0 sm:scale-95 transition-transform duration-200">
-      
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center space-x-2">
-          <div class="w-2 h-2 rounded-full bg-apven-green"></div>
-          <span class="text-[11px] font-bold uppercase tracking-wider text-apven-gray">Compra Directa</span>
-        </div>
-        <button onclick="closeCheckout()" class="p-1 rounded-full text-apven-gray hover:text-black">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-
-      <!-- Preview summary -->
-      <div id="checkoutItemDetails" class="flex items-center justify-between p-4 bg-apven-canvas rounded-2xl mb-5">
-        <!-- Injected dynamically -->
-      </div>
-
-      <!-- 1-Touch Apple Pay simulation -->
-      <button onclick="confirmOrder('Apple Pay')" class="w-full py-3.5 bg-black hover:bg-neutral-800 text-white rounded-2xl text-sm font-semibold flex items-center justify-center space-x-2 transition-all active:scale-[0.98] shadow-sm mb-3">
-        <span>Pagar con</span>
-        <svg class="h-4 fill-white inline" viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.69-7.85-11.97-14.42-6.3-9.74-11.16-20.94-14.59-33.6-3.43-12.67-5.15-24.23-5.15-34.69 0-14.9 3.86-27.18 11.58-36.85 7.72-9.67 17.51-14.65 29.37-14.94 4.8 0 10.13 1.25 15.98 3.75 5.86 2.5 9.74 3.75 11.66 3.75 1.62 0 5.73-1.35 12.33-4.04 6.6-2.7 12.18-3.89 16.74-3.58 13.06.66 23.36 5.68 30.9 15.06-11.45 6.94-17.06 16.54-16.84 28.8.21 9.8 4.09 17.96 11.64 24.47 5.08 4.41 10.74 7.23 16.99 8.46-2.58 7.62-5.75 15.19-9.51 22.71zM119.22 33.15c0-7.39 2.65-14.28 7.95-20.67 5.3-6.4 11.83-10.45 19.59-12.15.54 1.77.81 3.5.81 5.19 0 7.39-2.78 14.46-8.34 21.2-5.56 6.74-12.22 10.68-19.98 11.81-.03-1.78-.03-3.57-.03-5.38z"/></svg>
-        <span class="tracking-wide">Pay</span>
-      </button>
-
-      <!-- Standard Fast Confirm -->
-      <button onclick="confirmOrder('Tarjeta')" id="checkoutCardBtn" class="w-full py-3.5 bg-apven-blue hover:bg-apven-blueHover text-white rounded-2xl text-xs font-semibold tracking-wide transition-all active:scale-[0.98]">
-        Confirmar Envío Express
-      </button>
-    </div>
-  </div>
-
-  <div id="cartBackdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"></div>
-  <aside id="cartDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-white shadow-apple-hover flex flex-col transform translate-x-full transition-transform duration-300">
-    <div class="p-5 border-b border-black/[0.06] flex items-center justify-between">
-      <h3 class="text-base font-bold text-apven-dark">Bolsa Apven</h3>
-      <button onclick="toggleCartDrawer(false)" class="p-1 rounded-full text-apven-gray hover:text-black">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-primary/20 rounded-full blur-[140px]"></div>
+        <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-brand-cyan/15 rounded-full blur-[160px]"></div>
+        <div class="absolute bottom-10 left-1/3 w-80 h-80 bg-brand-violet/15 rounded-full blur-[130px]"></div>
+        <div class="absolute inset-0 grid-pattern opacity-60"></div>
     </div>
 
-    <div id="cartItemsList" class="flex-grow overflow-y-auto p-5 space-y-3">
-      <!-- Injected dynamically -->
-    </div>
+    <header class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-8 max-w-7xl mx-auto">
+        <nav class="glass-panel rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-2xl">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl gradient-brand flex items-center justify-center shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform duration-300">
+                    <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-xl tracking-tight text-white flex items-center">
+                        VENTURA<span class="text-brand-400">COM</span>
+                    </span>
+                    <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400 -mt-1">Systems & Data</span>
+                </div>
+            </a>
 
-    <div id="cartFooter" class="p-5 border-t border-black/[0.06] bg-apven-canvas">
-      <div class="flex justify-between items-center text-sm font-bold text-apven-dark mb-4">
-        <span>Total</span>
-        <span id="cartDrawerTotal">$0.00</span>
-      </div>
-      <button onclick="openBagCheckout()" class="w-full py-3.5 bg-black hover:bg-neutral-800 text-white text-xs font-semibold rounded-2xl transition-all shadow-sm">
-        Pagar Ahora &bull; Envío Gratis
-      </button>
-    </div>
-  </aside>
-
-  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-black text-white text-xs font-medium px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-2.5 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
-    <span class="w-2 h-2 rounded-full bg-apven-green"></span>
-    <span id="toastMsg">¡Agregado!</span>
-  </div>
-
-  <footer class="py-6 text-center text-[11px] text-apven-gray border-t border-black/[0.05] bg-white">
-    <div class="max-w-6xl mx-auto px-5 flex items-center justify-between">
-      <span class="font-semibold text-apven-dark">Apven &bull; 100% Original Apple</span>
-      <span>Garantía Oficial de 1 Año</span>
-    </div>
-  </footer>
-
-  <script>
-    const products = [
-      {
-        id: 'usbc',
-        name: 'USB-C a USB-C',
-        category: 'mac',
-        specs: ['Trenzado', 'Carga Rápida'],
-        graphicType: 'usbc',
-        variants: [
-          { label: '60W &bull; 1m', badge: '60W', price: 19 },
-          { label: '240W &bull; 2m', badge: '240W EPR', price: 29 }
-        ]
-      },
-      {
-        id: 'magsafe',
-        name: 'USB-C a MagSafe 3',
-        category: 'mac',
-        specs: ['Magnético', 'LED Indicador', '2 metros'],
-        graphicType: 'magsafe',
-        isColorSwatches: true,
-        variants: [
-          { label: 'Medianoche', color: '#1B2028', price: 49 },
-          { label: 'Blanco Estelar', color: '#E5DFD5', price: 49 },
-          { label: 'Gris Espacial', color: '#68696E', price: 49 },
-          { label: 'Plata', color: '#E1E2E5', price: 49 }
-        ]
-      },
-      {
-        id: 'tb4',
-        name: 'Thunderbolt 4 Pro',
-        category: 'mac',
-        specs: ['40 Gb/s', 'Negro Trenzado', '100W'],
-        graphicType: 'tb4',
-        variants: [
-          { label: '1 metro', badge: '1m', price: 69 },
-          { label: '1.8 metros', badge: '1.8m', price: 129 },
-          { label: '3 metros', badge: '3m', price: 159 }
-        ]
-      },
-      {
-        id: 'lightning',
-        name: 'USB-C a Lightning',
-        category: 'iphone',
-        specs: ['C94 Oficial', 'iPhone / AirPods'],
-        graphicType: 'lightning',
-        variants: [
-          { label: '1 metro', badge: '1m', price: 19 },
-          { label: '2 metros', badge: '2m', price: 29 }
-        ]
-      },
-      {
-        id: 'watch',
-        name: 'Cargador Rápido Apple Watch',
-        category: 'watch',
-        specs: ['Inducción Rápida', 'Aluminio', '1m'],
-        graphicType: 'watch',
-        variants: [
-          { label: '1 metro', badge: 'USB-C', price: 29 }
-        ]
-      },
-      {
-        id: 'adapter',
-        name: 'Adaptador 35W Dual USB-C',
-        category: 'mac',
-        specs: ['Doble Puerto', 'Carga GaN'],
-        graphicType: 'adapter',
-        variants: [
-          { label: 'Compacto 35W', badge: '35W Dual', price: 59 }
-        ]
-      }
-    ];
-
-    let currentFilter = 'all';
-    let selectedVariants = { usbc: 0, magsafe: 0, tb4: 0, lightning: 0, watch: 0, adapter: 0 };
-    let cart = [];
-    let currentPurchase = null;
-
-    function renderVisual(type, colorHex) {
-      if (type === 'usbc') {
-        return `
-          <svg class="w-full h-36" viewBox="0 0 280 120" fill="none">
-            <path d="M40 75 C90 75, 90 35, 140 35 C190 35, 190 75, 240 75" stroke="#E2E2E5" stroke-width="6.5" stroke-linecap="round"/>
-            <path d="M40 75 C90 75, 90 35, 140 35 C190 35, 190 75, 240 75" stroke="#9A9AA0" stroke-width="6.5" stroke-dasharray="2 3" stroke-linecap="round"/>
-            <rect x="22" y="66" width="22" height="18" rx="4" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="1.5"/>
-            <rect x="14" y="69" width="10" height="12" rx="2" fill="#A1A1A6"/>
-            <rect x="236" y="66" width="22" height="18" rx="4" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="1.5"/>
-            <rect x="256" y="69" width="10" height="12" rx="2" fill="#A1A1A6"/>
-          </svg>
-        `;
-      } else if (type === 'magsafe') {
-        const hex = colorHex || '#1B2028';
-        return `
-          <svg class="w-full h-36" viewBox="0 0 280 120" fill="none">
-            <path d="M40 75 C95 75, 95 35, 140 35 C185 35, 185 75, 240 75" stroke="${hex}" stroke-width="7" stroke-linecap="round"/>
-            <rect x="18" y="64" width="26" height="22" rx="5" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="1.5"/>
-            <circle cx="31" cy="70" r="2.5" fill="#34C759"/>
-            <rect x="9" y="68" width="10" height="14" rx="2" fill="#8E8E93"/>
-            <rect x="236" y="66" width="22" height="18" rx="4" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="1.5"/>
-            <rect x="256" y="69" width="10" height="12" rx="2" fill="#A1A1A6"/>
-          </svg>
-        `;
-      } else if (type === 'tb4') {
-        return `
-          <svg class="w-full h-36" viewBox="0 0 280 120" fill="none">
-            <path d="M40 70 Q 140 10 240 70" stroke="#161617" stroke-width="7.5" stroke-linecap="round"/>
-            <path d="M40 70 Q 140 10 240 70" stroke="#48484A" stroke-width="7.5" stroke-dasharray="2 3" stroke-linecap="round"/>
-            <rect x="20" y="60" width="24" height="20" rx="4.5" fill="#161617"/>
-            <path d="M33 64 L30 70 H34 L31 76" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="10" y="63" width="11" height="14" rx="2.5" fill="#636366"/>
-            <rect x="236" y="60" width="24" height="20" rx="4.5" fill="#161617"/>
-            <rect x="259" y="63" width="11" height="14" rx="2.5" fill="#636366"/>
-          </svg>
-        `;
-      } else if (type === 'watch') {
-        return `
-          <svg class="w-full h-36" viewBox="0 0 280 120" fill="none">
-            <path d="M85 60 L235 60" stroke="#E2E2E5" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="70" cy="60" r="28" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="2"/>
-            <circle cx="70" cy="60" r="22" fill="#F5F5F7"/>
-            <rect x="235" y="52" width="22" height="16" rx="4" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="1.5"/>
-            <rect x="255" y="55" width="9" height="10" rx="2" fill="#A1A1A6"/>
-          </svg>
-        `;
-      } else if (type === 'adapter') {
-        return `
-          <svg class="w-full h-36" viewBox="0 0 280 120" fill="none">
-            <rect x="100" y="24" width="80" height="72" rx="12" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="2"/>
-            <rect x="126" y="44" width="28" height="12" rx="3" fill="#161617"/>
-            <rect x="126" y="64" width="28" height="12" rx="3" fill="#161617"/>
-          </svg>
-        `;
-      } else {
-        // Lightning
-        return `
-          <svg class="w-full h-36" viewBox="0 0 280 120" fill="none">
-            <path d="M40 70 C95 70, 95 38, 140 38 C185 38, 185 70, 240 70" stroke="#E5E5EA" stroke-width="6.5" stroke-linecap="round"/>
-            <rect x="22" y="62" width="22" height="16" rx="3.5" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="1.5"/>
-            <rect x="13" y="65" width="10" height="10" rx="2" fill="#E5E5EA"/>
-            <line x1="16" y1="67" x2="16" y2="73" stroke="#E5A93C" stroke-width="1.2"/>
-            <line x1="18" y1="67" x2="18" y2="73" stroke="#E5A93C" stroke-width="1.2"/>
-            <rect x="236" y="62" width="22" height="16" rx="3.5" fill="#FFFFFF" stroke="#D1D1D6" stroke-width="1.5"/>
-            <rect x="256" y="65" width="10" height="10" rx="2" fill="#A1A1A6"/>
-          </svg>
-        `;
-      }
-    }
-
-    function renderGallery() {
-      const grid = document.getElementById('productGrid');
-      const filtered = products.filter(p => currentFilter === 'all' || p.category === currentFilter);
-
-      grid.innerHTML = filtered.map(item => {
-        const selIdx = selectedVariants[item.id] || 0;
-        const currentVar = item.variants[selIdx];
-
-        let variantSelector = '';
-        if (item.isColorSwatches) {
-          variantSelector = `
-            <div class="flex items-center space-x-2 py-1">
-              ${item.variants.map((v, idx) => `
-                <button onclick="pickVariant('${item.id}', ${idx})" 
-                  class="w-6 h-6 rounded-full border transition-all ${selIdx === idx ? 'ring-2 ring-black scale-110' : 'border-black/20 hover:scale-105'}"
-                  style="background-color: ${v.color};"
-                  title="${v.label}">
-                </button>
-              `).join('')}
-              <span class="text-xs text-apven-gray ml-2 font-medium">${currentVar.label}</span>
+            <!-- Nav Links Desktop -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#soluciones" class="hover:text-brand-400 transition-colors">Soluciones</a>
+                <a href="#arquitectura" class="hover:text-brand-400 transition-colors">Arquitectura</a>
+                <a href="#analisis-datos" class="hover:text-brand-400 transition-colors">Datos & BI</a>
+                <a href="#simulador" class="hover:text-brand-400 transition-colors">Simulador</a>
+                <a href="#stack" class="hover:text-brand-400 transition-colors">Tecnología</a>
             </div>
-          `;
-        } else if (item.variants.length > 1) {
-          variantSelector = `
-            <div class="flex flex-wrap gap-1.5 py-1">
-              ${item.variants.map((v, idx) => `
-                <button onclick="pickVariant('${item.id}', ${idx})" 
-                  class="px-3 py-1 rounded-full text-xs font-semibold transition-all ${selIdx === idx ? 'bg-black text-white' : 'bg-neutral-100 text-apven-gray hover:text-black'}">
-                  ${v.badge || v.label}
+
+            <!-- CTA Button & Mobile Toggle -->
+            <div class="flex items-center gap-3">
+                <a href="#contacto" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-white text-slate-900 hover:bg-slate-100 hover:shadow-lg hover:shadow-white/10 active:scale-95 transition-all">
+                    <span>Cotizar Proyecto</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+                <button id="mobileMenuBtn" aria-label="Abrir Menú" class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white glass-panel">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
-              `).join('')}
             </div>
-          `;
+        </nav>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden mt-2 glass-panel rounded-2xl p-5 flex flex-col gap-4 text-sm font-medium text-slate-200">
+            <a href="#soluciones" class="p-2 hover:bg-slate-800/60 rounded-lg">Soluciones</a>
+            <a href="#arquitectura" class="p-2 hover:bg-slate-800/60 rounded-lg">Arquitectura</a>
+            <a href="#analisis-datos" class="p-2 hover:bg-slate-800/60 rounded-lg">Datos & BI</a>
+            <a href="#simulador" class="p-2 hover:bg-slate-800/60 rounded-lg">Simulador</a>
+            <a href="#stack" class="p-2 hover:bg-slate-800/60 rounded-lg">Tecnología</a>
+            <a href="#contacto" class="p-3 bg-brand-primary text-white rounded-xl text-center font-semibold">Cotizar Proyecto</a>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section class="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col justify-center">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                <!-- Left Content -->
+                <div class="lg:col-span-7 flex flex-col items-start">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-400/30 bg-brand-400/10 text-brand-400 text-xs font-mono mb-6 backdrop-blur-md">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span>Ingeniería Digital de Misión Crítica</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12] mb-6">
+                        Desarrollo robusto, arquitecturas <span class="gradient-text">resilientes</span> y analítica de datos.
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl mb-8 font-light leading-relaxed">
+                        En <strong class="text-white font-medium">Venturacom</strong> transformamos desafíos complejos en software escalable, plataformas en la nube de alta disponibilidad y pipelines analíticos para toma de decisiones en tiempo real.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                        <a href="#soluciones" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold bg-gradient-to-r from-brand-500 to-brand-primary text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all">
+                            <span>Explorar Soluciones</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#simulador" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold glass-panel text-slate-200 hover:text-white hover:border-slate-600 transition-all">
+                            <i data-lucide="cpu" class="w-4 h-4 text-brand-cyan"></i>
+                            <span>Ver Arquitectura Interactiva</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Metric Badges -->
+                    <div class="mt-12 pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-6 sm:gap-10 w-full max-w-lg">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">99.99%</div>
+                            <div class="text-xs text-slate-400 mt-1">SLA Uptime Cloud</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold font-mono text-brand-400">+50M</div>
+                            <div class="text-xs text-slate-400 mt-1">Eventos / día</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">&lt;45ms</div>
+                            <div class="text-xs text-slate-400 mt-1">Latencia media</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual: Interactive System Telemetry Card -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Ambient Glow -->
+                        <div class="absolute -inset-1.5 gradient-brand rounded-2xl blur-xl opacity-30 animate-pulse-slow"></div>
+                        
+                        <div class="relative glass-panel rounded-2xl p-6 overflow-hidden shadow-2xl border border-slate-700/60">
+                            <!-- Top Console Bar -->
+                            <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                    <span class="text-xs font-mono text-slate-400 ml-2">venturacom-node-mesh</span>
+                                </div>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">ONLINE</span>
+                            </div>
+
+                            <!-- Live Nodes Visual -->
+                            <div class="space-y-4">
+                                <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2 rounded-lg bg-sky-500/10 text-sky-400">
+                                            <i data-lucide="server" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold text-white">Event Mesh Core</p>
+                                            <p class="text-[11px] text-slate-400 font-mono">Kafka / EventBridge Cluster</p>
+                                        </div>
+                                    </div>
+                                    <span id="heroTelemetryEventRate" class="text-xs font-mono font-medium text-sky-400">3,420 evt/s</span>
+                                </div>
+
+                                <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
+                                            <i data-lucide="database" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold text-white">Distributed Data Lakehouse</p>
+                                            <p class="text-[11px] text-slate-400 font-mono">Parquet / Vector DB Index</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-mono font-medium text-indigo-400">12.8 TB synced</span>
+                                </div>
+
+                                <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold text-white">Zero Trust Gateway</p>
+                                            <p class="text-[11px] text-slate-400 font-mono">mTLS & RBAC Validated</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-mono font-medium text-emerald-400">100% Secure</span>
+                                </div>
+                            </div>
+
+                            <!-- Live Visual Bar Activity -->
+                            <div class="mt-5 pt-4 border-t border-slate-800/80">
+                                <div class="flex justify-between text-xs text-slate-400 mb-2 font-mono">
+                                    <span>Capacidad de Cómputo Elástico</span>
+                                    <span id="heroCapacityLabel">42%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                                    <div id="heroCapacityBar" class="h-full gradient-brand rounded-full transition-all duration-700" style="width: 42%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="soluciones" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <p class="text-brand-400 font-mono text-xs uppercase tracking-widest font-semibold mb-3">Nuestra Especialización</p>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Tres pilares de ingeniería para transformar su negocio
+                </h2>
+                <p class="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Unimos ingeniería de software de primer nivel, diseños de infraestructura cloud y análisis analítico de alta precisión.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Pillar 1: Software Solutions -->
+                <div class="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col justify-between relative group">
+                    <div class="absolute top-0 right-0 w-28 h-28 bg-brand-primary/10 rounded-full blur-2xl group-hover:bg-brand-primary/20 transition-all"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-blue-500/10 border border-blue-500/20 text-brand-400 flex items-center justify-center mb-6">
+                            <i data-lucide="code-2" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Desarrollo de Soluciones</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Creación de aplicaciones web y plataformas SaaS complejas con estándares Enterprise. Código modular, pruebas automatizadas y despliegue continuo.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 font-mono mb-6">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>APIs RESTful y GraphQL ultrarrápidas</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>Portales de autoservicio & B2B SaaS</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>Modernización de software monolítico</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800">
+                        <span class="text-xs font-semibold text-brand-400 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Conocer más sobre Soluciones <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Architecture -->
+                <div id="arquitectura" class="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col justify-between relative group">
+                    <div class="absolute top-0 right-0 w-28 h-28 bg-brand-cyan/10 rounded-full blur-2xl group-hover:bg-brand-cyan/20 transition-all"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-brand-cyan flex items-center justify-center mb-6">
+                            <i data-lucide="network" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Arquitectura de Sistemas</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Diseño de arquitecturas tolerantes a fallos, escalables y optimizadas en costos sobre nubes híbridas y públicas (AWS, Azure, GCP).
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 font-mono mb-6">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>Sistemas guiados por eventos (EDA)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>Contenedores Kubernetes & Serverless</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>FinOps: Reducción de costos de nube</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800">
+                        <span class="text-xs font-semibold text-brand-cyan inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Auditar mi Arquitectura <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Pillar 3: Data Analytics -->
+                <div id="analisis-datos" class="glass-panel glass-panel-hover rounded-2xl p-8 flex flex-col justify-between relative group">
+                    <div class="absolute top-0 right-0 w-28 h-28 bg-brand-violet/10 rounded-full blur-2xl group-hover:bg-brand-violet/20 transition-all"></div>
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-violet-500/10 border border-violet-500/20 text-brand-violet flex items-center justify-center mb-6">
+                            <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Análisis de Datos & BI</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Convertimos datos desestructurados en activos estratégicos. Data lakes, tableros interactivos y modelos predictivos listos para producción.
+                        </p>
+                        <ul class="space-y-2.5 text-xs text-slate-300 font-mono mb-6">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>Pipelines de ingestión ETL / ELT</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>Data Warehouses en Snowflake / BigQuery</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-cyan"></i>
+                                <span>Dashboards ejecutivos automatizados</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800">
+                        <span class="text-xs font-semibold text-brand-violet inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Diseñar Pipeline de Datos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulador" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="px-3 py-1 rounded-full text-xs font-mono bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20">Venturacom Lab Engine</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Simulador de Ecosistema & Flujos</h2>
+                <p class="text-slate-400 text-sm mt-2">Pruebe las capas operativas que diseñamos para clientes de alta demanda.</p>
+            </div>
+
+            <!-- Simulator Container -->
+            <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl">
+                <!-- Selector Tabs -->
+                <div class="flex flex-wrap gap-2 pb-6 border-b border-slate-800/80 mb-8" id="tabContainer">
+                    <button onclick="switchTab('pipeline')" id="tabBtn-pipeline" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-brand-primary text-white flex items-center gap-2">
+                        <i data-lucide="git-branch" class="w-4 h-4"></i>
+                        <span>Flujo de Datos & Eventos</span>
+                    </button>
+                    <button onclick="switchTab('topology')" id="tabBtn-topology" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white glass-panel flex items-center gap-2">
+                        <i data-lucide="cloud-cog" class="w-4 h-4"></i>
+                        <span>Topología Cloud Multi-Región</span>
+                    </button>
+                    <button onclick="switchTab('metrics')" id="tabBtn-metrics" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white glass-panel flex items-center gap-2">
+                        <i data-lucide="activity" class="w-4 h-4"></i>
+                        <span>Telemetría en Tiempo Real</span>
+                    </button>
+                </div>
+
+                <!-- TAB 1: Data & Event Pipeline Simulator -->
+                <div id="tabContent-pipeline" class="block">
+                    <div class="grid lg:grid-cols-4 gap-4 items-center mb-8">
+                        <!-- Node 1 -->
+                        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col text-center items-center">
+                            <div class="w-10 h-10 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center mb-3">
+                                <i data-lucide="smartphone" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">1. Fuentes & Dispositivos</h4>
+                            <p class="text-xs text-slate-400 mt-1">Apps móviles, IoT & transacciones Web</p>
+                            <span class="mt-3 px-2 py-0.5 rounded text-[11px] font-mono bg-sky-500/10 text-sky-300">120k req/min</span>
+                        </div>
+                        
+                        <!-- Node 2 -->
+                        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col text-center items-center">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-3">
+                                <i data-lucide="zap" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">2. Kafka & Event Stream</h4>
+                            <p class="text-xs text-slate-400 mt-1">Ingestión asíncrona desacoplada</p>
+                            <span class="mt-3 px-2 py-0.5 rounded text-[11px] font-mono bg-indigo-500/10 text-indigo-300">&lt; 8ms backlog</span>
+                        </div>
+
+                        <!-- Node 3 -->
+                        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col text-center items-center">
+                            <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center mb-3">
+                                <i data-lucide="workflow" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">3. Procesamiento & Cleanse</h4>
+                            <p class="text-xs text-slate-400 mt-1">Microservicios y validación de esquemas</p>
+                            <span class="mt-3 px-2 py-0.5 rounded text-[11px] font-mono bg-purple-500/10 text-purple-300">0% pérdidas</span>
+                        </div>
+
+                        <!-- Node 4 -->
+                        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col text-center items-center">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
+                                <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white">4. Lakehouse & Analytics</h4>
+                            <p class="text-xs text-slate-400 mt-1">Modelado BI y consultas en vivo</p>
+                            <span class="mt-3 px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-300">Query &lt; 200ms</span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Simulation Controls -->
+                    <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <button id="triggerEventBtn" class="px-4 py-2 bg-brand-primary text-white rounded-xl text-xs font-semibold hover:bg-blue-600 transition flex items-center gap-2">
+                                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                                Simular Ráfaga de Tráfico
+                            </button>
+                            <span id="pipelineStatus" class="text-xs font-mono text-slate-400">Estado: Pipeline nominal</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
+                            <div>Buffer: <span id="bufferDisplay" class="text-white font-bold">14%</span></div>
+                            <div>Throughput: <span id="throughputDisplay" class="text-emerald-400 font-bold">4.2 Gbps</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: Topology Visualizer (Hidden initially) -->
+                <div id="tabContent-topology" class="hidden">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-bold text-white text-sm">US-East (Primary Node)</h4>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-4">Balanceador ALB + Auto-scaling Kubernetes pods.</p>
+                            <div class="space-y-2 text-xs font-mono">
+                                <div class="flex justify-between text-slate-400"><span>Instancias activas:</span><span class="text-white">16 Pods</span></div>
+                                <div class="flex justify-between text-slate-400"><span>Latencia DNS:</span><span class="text-emerald-400">12ms</span></div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-bold text-white text-sm">SA-East (LATAM Edge)</h4>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-4">CloudFront Edge Caching y réplicas de lectura DB.</p>
+                            <div class="space-y-2 text-xs font-mono">
+                                <div class="flex justify-between text-slate-400"><span>Instancias activas:</span><span class="text-white">8 Pods</span></div>
+                                <div class="flex justify-between text-slate-400"><span>Latencia DNS:</span><span class="text-emerald-400">18ms</span></div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-bold text-white text-sm">EU-West (Failover Hot)</h4>
+                                <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-4">Sincronización multi-cloud con recuperación instantánea.</p>
+                            <div class="space-y-2 text-xs font-mono">
+                                <div class="flex justify-between text-slate-400"><span>RPO / RTO:</span><span class="text-white">&lt; 30 seg</span></div>
+                                <div class="flex justify-between text-slate-400"><span>Estado:</span><span class="text-sky-300">Standby Sync</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: Realtime Telemetry Graph Simulator -->
+                <div id="tabContent-metrics" class="hidden">
+                    <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Latencia de Solicitudes API & Carga de CPU</h4>
+                                <p class="text-xs text-slate-400">Métricas actualizadas dinámicamente</p>
+                            </div>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Ventana: Últimos 60s</span>
+                        </div>
+                        
+                        <!-- Visual Synthetic Chart Bars -->
+                        <div class="h-32 flex items-end gap-2 pt-4 px-2 border-b border-l border-slate-700/80">
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[40%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[55%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[30%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[70%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[45%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[80%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[60%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[35%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[50%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-emerald-500/80 rounded-t h-[25%] hover:bg-emerald-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/60 rounded-t h-[65%] hover:bg-sky-400 transition-all"></div>
+                            <div class="flex-1 bg-sky-500/80 rounded-t h-[48%] hover:bg-sky-400 transition-all"></div>
+                        </div>
+                        <div class="flex justify-between text-[11px] font-mono text-slate-500 mt-2">
+                            <span>-60 seg</span>
+                            <span>-30 seg</span>
+                            <span>Ahora (P99: 42ms)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stack" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <p class="text-xs font-mono uppercase tracking-widest text-brand-400 font-semibold mb-2">Ecosistema Tecnológico</p>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Stack probado en entornos de alta exigencia</h3>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">AWS & Cloud Native</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">Apache Kafka</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">Kubernetes / Docker</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">PostgreSQL & Aurora</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">Snowflake & BigQuery</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">Python / PySpark</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">Node.js / TypeScript</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">React & Next.js</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">Terraform & IaC</span>
+                <span class="px-4 py-2 rounded-xl text-xs font-mono font-medium glass-panel text-slate-200 border border-slate-700/60 hover:border-brand-400/60 transition-colors">Power BI / Looker</span>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/60">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Details -->
+                <div class="lg:col-span-5">
+                    <span class="text-xs font-mono uppercase tracking-widest text-brand-400 font-semibold">Iniciemos Conversaciones</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3 mb-6">
+                        Construyamos la siguiente etapa de su tecnología.
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
+                        Ya sea que requiera auditar una arquitectura existente, construir una plataforma desde cero o estructurar sus datos corporativos, nuestros ingenieros consultores están listos para analizar su caso.
+                    </p>
+
+                    <div class="space-y-4 text-sm text-slate-300">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-brand-primary/20 text-brand-400 flex items-center justify-center">
+                                <i data-lucide="mail" class="w-4 h-4"></i>
+                            </div>
+                            <span>contacto@venturacom.io</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-brand-primary/20 text-brand-400 flex items-center justify-center">
+                                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            </div>
+                            <span>Centro de Operaciones Cloud & Data • Latam & Global</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                            </div>
+                            <span>Tiempo de respuesta habitual: &lt; 4 horas laborales</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form Glass -->
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative">
+                        <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-300 mb-2">NOMBRE O EMPRESA *</label>
+                                    <input type="text" required placeholder="Ej: Santiago Ruiz / Tech Corp" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-400 transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-300 mb-2">CORREO CORPORATIVO *</label>
+                                    <input type="email" required placeholder="nombre@compania.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-400 transition-colors">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-2">ENFOQUE PRINCIPAL DEL PROYECTO</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                    <label class="cursor-pointer border border-slate-800 rounded-xl p-3 text-center text-xs has-[:checked]:border-brand-400 has-[:checked]:bg-brand-500/10 transition">
+                                        <input type="radio" name="projectType" value="desarrollo" class="hidden" checked>
+                                        <span class="block font-semibold text-white">Desarrollo</span>
+                                        <span class="text-[10px] text-slate-400">Software / APIs</span>
+                                    </label>
+                                    <label class="cursor-pointer border border-slate-800 rounded-xl p-3 text-center text-xs has-[:checked]:border-brand-400 has-[:checked]:bg-brand-500/10 transition">
+                                        <input type="radio" name="projectType" value="arquitectura" class="hidden">
+                                        <span class="block font-semibold text-white">Arquitectura</span>
+                                        <span class="text-[10px] text-slate-400">Cloud & Resiliencia</span>
+                                    </label>
+                                    <label class="cursor-pointer border border-slate-800 rounded-xl p-3 text-center text-xs has-[:checked]:border-brand-400 has-[:checked]:bg-brand-500/10 transition">
+                                        <input type="radio" name="projectType" value="analitica" class="hidden">
+                                        <span class="block font-semibold text-white">Analítica</span>
+                                        <span class="text-[10px] text-slate-400">Data & BI</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-2">DETALLE DEL PROYECTO O ALCANCE *</label>
+                                <textarea rows="4" required placeholder="Cuéntenos sobre sus metas, volumen estimado de usuarios/datos o requerimientos técnicos..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-400 transition-colors resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-brand-500 to-brand-primary text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
+                                <span>Solicitar Evaluación Técnica</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+
+                        <!-- Success State Banner (Hidden by default) -->
+                        <div id="successNotice" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm text-center">
+                            ¡Solicitud enviada exitosamente! Un arquitecto principal de Venturacom se pondrá en contacto pronto.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg gradient-brand flex items-center justify-center">
+                    <i data-lucide="layers" class="w-4 h-4 text-white"></i>
+                </div>
+                <span class="font-bold text-white text-lg tracking-tight">VENTURACOM</span>
+                <span class="text-xs text-slate-500 font-mono">| Consultoría y Desarrollo Avanzado</span>
+            </div>
+
+            <div class="text-xs text-slate-400 text-center md:text-right">
+                &copy; <span id="year"></span> Venturacom Inc. Todos los derechos reservados. Arquitectura & Data Solutions.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Dynamic Copyright Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tab Switcher for Architecture Simulator
+        function switchTab(tabKey) {
+            const tabs = ['pipeline', 'topology', 'metrics'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`tabContent-${t}`);
+                const btn = document.getElementById(`tabBtn-${t}`);
+                
+                if (t === tabKey) {
+                    content.classList.remove('hidden');
+                    btn.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-brand-primary text-white flex items-center gap-2";
+                } else {
+                    content.classList.add('hidden');
+                    btn.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-400 hover:text-white glass-panel flex items-center gap-2";
+                }
+            });
+            // Re-render icons after tab update
+            lucide.createIcons();
         }
 
-        return `
-          <div class="bg-white rounded-3xl p-6 shadow-apple hover:shadow-apple-hover transition-all duration-200 flex flex-col justify-between">
-            <div>
-              <!-- Spec chips -->
-              <div class="flex flex-wrap gap-1.5 mb-3">
-                ${item.specs.map(s => `
-                  <span class="text-[10px] font-bold uppercase tracking-wider text-apven-gray bg-neutral-100 px-2 py-0.5 rounded-full">${s}</span>
-                `).join('')}
-              </div>
+        // Live Simulated Event Burst
+        const triggerEventBtn = document.getElementById('triggerEventBtn');
+        const pipelineStatus = document.getElementById('pipelineStatus');
+        const bufferDisplay = document.getElementById('bufferDisplay');
+        const throughputDisplay = document.getElementById('throughputDisplay');
+        const heroTelemetryEventRate = document.getElementById('heroTelemetryEventRate');
 
-              <!-- Product Graphic Visual -->
-              <div class="bg-apven-canvas rounded-2xl flex items-center justify-center p-3 mb-4">
-                ${renderVisual(item.graphicType, currentVar.color)}
-              </div>
+        if (triggerEventBtn) {
+            triggerEventBtn.addEventListener('click', () => {
+                triggerEventBtn.disabled = true;
+                pipelineStatus.textContent = "Estado: ⚡ Procesando ráfaga elástica (+45,000 evt/s)...";
+                pipelineStatus.classList.add('text-brand-cyan');
+                bufferDisplay.textContent = "68%";
+                throughputDisplay.textContent = "18.4 Gbps";
+                heroTelemetryEventRate.textContent = "45,210 evt/s";
 
-              <h3 class="text-lg font-bold tracking-tight text-apven-dark">${item.name}</h3>
+                setTimeout(() => {
+                    pipelineStatus.textContent = "Estado: Drenado a Lakehouse completado. 0 fallas.";
+                    pipelineStatus.classList.remove('text-brand-cyan');
+                    pipelineStatus.classList.add('text-emerald-400');
+                    bufferDisplay.textContent = "11%";
+                    throughputDisplay.textContent = "4.2 Gbps";
+                    heroTelemetryEventRate.textContent = "3,480 evt/s";
+                    triggerEventBtn.disabled = false;
+                }, 2200);
+            });
+        }
 
-              <!-- Compact Variants -->
-              <div class="mt-3">
-                ${variantSelector}
-              </div>
-            </div>
+        // Handle Contact Form Submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const successNotice = document.getElementById('successNotice');
 
-            <!-- Price and Buy Action -->
-            <div class="mt-6 pt-4 border-t border-black/[0.06] flex items-center justify-between">
-              <div>
-                <span class="text-2xl font-extrabold text-apven-dark tracking-tight">$${currentVar.price}</span>
-              </div>
-              
-              <div class="flex items-center space-x-2">
-                <button onclick="quickAddBag('${item.id}')" title="Añadir a la bolsa" class="p-3 rounded-2xl bg-neutral-100 hover:bg-neutral-200 text-apven-dark transition-colors">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                </button>
-                <button onclick="openInstantBuy('${item.id}')" class="px-5 py-3 rounded-2xl bg-black hover:bg-neutral-800 text-white text-xs font-semibold tracking-wide transition-transform active:scale-95">
-                  Comprar
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Procesando...</span>`;
 
-    function setFilter(cat, btn) {
-      currentFilter = cat;
-      document.querySelectorAll('.filter-pill').forEach(b => {
-        b.classList.remove('bg-white', 'text-black', 'shadow-sm');
-        b.classList.add('text-apven-gray');
-      });
-      btn.classList.add('bg-white', 'text-black', 'shadow-sm');
-      btn.classList.remove('text-apven-gray');
-      renderGallery();
-    }
+            setTimeout(() => {
+                document.getElementById('contactForm').reset();
+                successNotice.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>Solicitar Evaluación Técnica</span><i data-lucide="send" class="w-4 h-4"></i>`;
+                lucide.createIcons();
+            }, 900);
+        }
 
-    function pickVariant(id, idx) {
-      selectedVariants[id] = idx;
-      renderGallery();
-    }
-
-    function openInstantBuy(id) {
-      const item = products.find(p => p.id === id);
-      const v = item.variants[selectedVariants[id] || 0];
-      currentPurchase = { name: item.name, variant: v.label, price: v.price };
-
-      document.getElementById('checkoutItemDetails').innerHTML = `
-        <div>
-          <h4 class="text-sm font-bold text-apven-dark">${item.name}</h4>
-          <span class="text-xs text-apven-gray">${v.label} &bull; Envío Gratis</span>
-        </div>
-        <span class="text-lg font-extrabold text-apven-dark">$${v.price}</span>
-      `;
-      document.getElementById('checkoutCardBtn').textContent = `Pagar $${v.price} con Tarjeta`;
-
-      const modal = document.getElementById('checkoutModal');
-      const card = document.getElementById('checkoutCard');
-      modal.classList.remove('opacity-0', 'pointer-events-none');
-      card.classList.remove('translate-y-8', 'sm:scale-95');
-    }
-
-    function closeCheckout() {
-      const modal = document.getElementById('checkoutModal');
-      const card = document.getElementById('checkoutCard');
-      modal.classList.add('opacity-0', 'pointer-events-none');
-      card.classList.add('translate-y-8', 'sm:scale-95');
-    }
-
-    function confirmOrder(method) {
-      closeCheckout();
-      showToast(`¡Orden confirmada con ${method}!`);
-    }
-
-    function quickAddBag(id) {
-      const item = products.find(p => p.id === id);
-      const v = item.variants[selectedVariants[id] || 0];
-      const key = `${id}-${v.label}`;
-      const found = cart.find(c => c.key === key);
-
-      if (found) {
-        found.qty += 1;
-      } else {
-        cart.push({ key, name: item.name, variant: v.label, price: v.price, qty: 1 });
-      }
-      updateCartDisplay();
-      showToast('Añadido a tu bolsa');
-    }
-
-    function updateCartDisplay() {
-      const count = cart.reduce((sum, i) => sum + i.qty, 0);
-      const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-      document.getElementById('bagCounter').textContent = count;
-      document.getElementById('cartDrawerTotal').textContent = `$${total}`;
-
-      const list = document.getElementById('cartItemsList');
-      if (cart.length === 0) {
-        list.innerHTML = `
-          <div class="h-44 flex flex-col items-center justify-center text-center text-apven-gray">
-            <span class="text-xs font-medium">Bolsa vacía</span>
-          </div>
-        `;
-      } else {
-        list.innerHTML = cart.map(item => `
-          <div class="flex items-center justify-between p-3.5 bg-apven-canvas rounded-2xl text-xs">
-            <div>
-              <p class="font-bold text-apven-dark">${item.name}</p>
-              <p class="text-apven-gray">${item.variant} &times; ${item.qty}</p>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="font-bold text-apven-dark">$${item.price * item.qty}</span>
-              <button onclick="removeBagItem('${item.key}')" class="text-apven-gray hover:text-black font-bold p-1">&times;</button>
-            </div>
-          </div>
-        `).join('');
-      }
-    }
-
-    function removeBagItem(key) {
-      cart = cart.filter(c => c.key !== key);
-      updateCartDisplay();
-    }
-
-    function toggleCartDrawer(open) {
-      const drawer = document.getElementById('cartDrawer');
-      const backdrop = document.getElementById('cartBackdrop');
-      if (open) {
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        drawer.classList.remove('translate-x-full');
-      } else {
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
-        drawer.classList.add('translate-x-full');
-      }
-    }
-
-    function openBagCheckout() {
-      toggleCartDrawer(false);
-      showToast('¡Procesando pedido de la bolsa!');
-    }
-
-    function showToast(text) {
-      const t = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = text;
-      t.classList.remove('translate-y-24', 'opacity-0');
-      setTimeout(() => {
-        t.classList.add('translate-y-24', 'opacity-0');
-      }, 2200);
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      renderGallery();
-      updateCartDisplay();
-    });
-  </script>
+        // Subtle periodic metric fluctuations in Hero
+        setInterval(() => {
+            const capacityBar = document.getElementById('heroCapacityBar');
+            const capacityLabel = document.getElementById('heroCapacityLabel');
+            if (capacityBar && capacityLabel) {
+                const randomVal = Math.floor(Math.random() * (52 - 38 + 1)) + 38;
+                capacityBar.style.width = randomVal + '%';
+                capacityLabel.textContent = randomVal + '%';
+            }
+        }, 3500);
+    </script>
 </body>
 </html>
